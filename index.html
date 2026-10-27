@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DBMS SQL Practical Examination | SECE2280</title>
+<style>
+:root{font-family:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;color:#1c2940;background:#f2f5fa}*{box-sizing:border-box}body{margin:0}.wrap{max-width:900px;margin:38px auto;padding:0 18px 45px}.hero{background:linear-gradient(120deg,#183b69,#245f91);color:white;border-radius:15px;padding:28px 30px}.hero h1{margin:7px 0;font-size:clamp(23px,4vw,34px)}.hero p{margin:5px 0;color:#e5f0fc}.panel{background:white;border:1px solid #e0e7f0;border-radius:14px;padding:26px;margin-top:18px;box-shadow:0 3px 16px #152d4910}.small{font-size:13px;color:#65728a}.tag{font-size:12px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;color:#a8d9ff}.schedule{width:100%;border-collapse:collapse;font-size:14px}.schedule td,.schedule th{text-align:left;padding:11px;border-bottom:1px solid #e8edf5}.schedule th{background:#f4f7fc}h2{margin:0 0 16px;font-size:21px}label{display:block;font-weight:650;margin:14px 0 7px}select,input{width:100%;font-size:16px;padding:13px;border:1px solid #b8c5d8;border-radius:9px;background:#fff;color:#1c2940}button{background:#1766a3;border:0;color:#fff;padding:13px 18px;border-radius:9px;font-size:16px;font-weight:650;cursor:pointer}button:hover{background:#124e7e}button.secondary{background:#edf4fa;color:#205b89}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.alert{background:#fff4df;color:#77501b;padding:11px 13px;border-radius:9px;font-size:13px;margin-top:14px}.error{color:#b42318;font-weight:650;min-height:20px}.case-title{color:#164d7c;margin:4px 0 15px;font-size:24px}.meta{display:flex;gap:8px;flex-wrap:wrap}.pill{background:#eaf3fc;color:#1b527e;padding:7px 10px;border-radius:7px;font-size:13px;font-weight:650}.scenario{background:#f3f7fc;border-left:4px solid #2675b0;padding:15px;line-height:1.65;border-radius:6px}.q{line-height:1.65;padding:10px 0;border-bottom:1px solid #edf0f5}.q b{color:#1c6096}.instructions li{padding:4px 0;line-height:1.5}.hidden{display:none}@media print{.no-print{display:none!important}.wrap{margin:0;max-width:none}.panel{box-shadow:none;break-inside:avoid}.hero{color:#1c2940;background:white;border:1px solid #bbb}.hero p{color:#333}.tag{color:#333}}@media(max-width:540px){.panel,.hero{padding:19px}.schedule{font-size:12px}}
+</style></head><body><main class="wrap">
+<header class="hero"><div class="tag">Semester V Engineering · External Practical</div><h1>Database Management Systems (DBMS)</h1><p>SQL Practical Question Assignment · Course Code SECE2280</p></header>
+
+<section class="panel no-print"><h2>Get your assigned SQL question set</h2><form id="assignmentForm"><label for="roll">University roll number</label><input id="roll" type="text" maxlength="20" placeholder="e.g. 24SE02IT084" autocomplete="off" spellcheck="false" required pattern="[A-Za-z0-9]{8,20}" title="Enter an alphanumeric university roll number (8–20 characters)"><div class="actions"><button type="submit">Assign my question set</button></div><p id="error" class="error" role="alert"></p></form></section>
+<section class="panel hidden" id="result" aria-live="polite"><div class="meta"><span class="pill" id="studentRoll"></span></div><p class="small" style="margin-top:20px">YOUR ALLOTTED SQL QUESTION SET</p><h2 class="case-title" id="caseTitle"></h2><h3>Database tables</h3><div class="scenario" id="scenario"></div><h3>SQL tasks</h3><div id="questions"></div><h3>Practical instructions</h3><ol class="instructions"><li>Use SQL Server Management Studio (SSMS) connected to the university server.</li><li>Work only in your assigned database; do not modify other students’ tables or databases.</li><li>Use T-SQL to create the required tables with appropriate data types and keys.</li><li>Execute all four SQL tasks and show the query and result to the examiner.</li><li>Write the assigned questions and SQL queries on the answer sheet.</li></ol><div class="actions no-print"><button type="button" onclick="window.print()">Print / Save as PDF</button><button type="button" class="secondary" id="backBtn">Enter another roll number</button></div></section>
+</main><script>
+const cases = [
+  {
+    "number": 1,
+    "title": "Student Records",
+    "scenario": "Create Student(StudentID, Name, Department, Marks).",
+    "questions": [
+      "Insert five student records.",
+      "Display students with Marks > 70.",
+      "Show department-wise average marks.",
+      "Display students by Marks descending."
+    ]
+  },
+  {
+    "number": 2,
+    "title": "Employee Database",
+    "scenario": "Create Employee(EmpID, EmpName, Dept, Salary).",
+    "questions": [
+      "Insert five employee records.",
+      "Increase salary by 10% for IT employees.",
+      "Find the second-highest salary.",
+      "Display department-wise maximum salary."
+    ]
+  },
+  {
+    "number": 3,
+    "title": "Library Management",
+    "scenario": "Create Book(BookID, Title, Author, Price).",
+    "questions": [
+      "Insert five book records.",
+      "Show books priced between 300 and 700.",
+      "Count books by each author.",
+      "Display the three costliest books."
+    ]
+  },
+  {
+    "number": 4,
+    "title": "Product Inventory",
+    "scenario": "Create Product(ProductID, ProductName, Category, Price, Stock).",
+    "questions": [
+      "Insert five products.",
+      "Show products with Stock < 10.",
+      "Update stock for one product.",
+      "Find category-wise total stock."
+    ]
+  },
+  {
+    "number": 5,
+    "title": "Course Enrollment",
+    "scenario": "Create Student(StudentID, Name) and Enrollment(StudentID, CourseName).",
+    "questions": [
+      "Insert sample records in both tables.",
+      "List students with their courses using JOIN.",
+      "Find students enrolled in SQL.",
+      "Count enrollments per course."
+    ]
+  },
+  {
+    "number": 6,
+    "title": "Bank Accounts",
+    "scenario": "Create Account(AccountID, HolderName, Balance).",
+    "questions": [
+      "Insert five accounts.",
+      "Show accounts with Balance > 10000.",
+      "Transfer 500 between two accounts using a transaction.",
+      "Display the account with minimum balance."
+    ]
+  },
+  {
+    "number": 7,
+    "title": "Sales Orders",
+    "scenario": "Create Customer(CustomerID, CustomerName) and Orders(OrderID, CustomerID, Amount).",
+    "questions": [
+      "Insert sample records.",
+      "Display customer names with order amounts using JOIN.",
+      "Find total spending per customer.",
+      "Show customers without orders using LEFT JOIN."
+    ]
+  },
+  {
+    "number": 8,
+    "title": "Exam Results",
+    "scenario": "Create Result(RollNo, StudentName, Subject, Marks).",
+    "questions": [
+      "Insert six records.",
+      "Find the highest marks in each subject.",
+      "Show students scoring at least 60.",
+      "Display average marks per subject using HAVING > 65."
+    ]
+  },
+  {
+    "number": 9,
+    "title": "Hospital Appointments",
+    "scenario": "Create Patient(PatientID, PatientName, Age) and Appointment(AppID, PatientID, Doctor).",
+    "questions": [
+      "Insert sample records.",
+      "Display patient names with doctor names using JOIN.",
+      "Count appointments per doctor.",
+      "List patients with no appointments."
+    ]
+  },
+  {
+    "number": 10,
+    "title": "Movie Ticket Booking",
+    "scenario": "Create Movie(MovieID, Title, TicketPrice, SeatsAvailable).",
+    "questions": [
+      "Insert five movies.",
+      "Display movies with available seats.",
+      "Reduce seats by 2 for one movie.",
+      "Find movies priced above the average ticket price."
+    ]
+  }
+];
+// Deterministic pseudo-random allocation: same roll => same case, across devices.
+// Not cryptographically secure. Students can inspect or modify client-side JavaScript.
+function assignedIndex(roll){const key='SECE2280|'+roll;let h=2166136261;for(let i=0;i<key.length;i++){h^=key.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0)%cases.length}
+const form=document.getElementById('assignmentForm');
+form.addEventListener('submit',e=>{e.preventDefault();const roll=document.getElementById('roll').value.trim().toUpperCase();const err=document.getElementById('error');err.textContent='';if(!/^[A-Z0-9]{8,20}$/.test(roll)){err.textContent='Please enter a valid alphanumeric roll number.';return}const c=cases[assignedIndex(roll)];document.getElementById('studentRoll').textContent='Roll: '+roll;document.getElementById('caseTitle').textContent='Question Set '+c.number+': '+c.title;document.getElementById('scenario').textContent=c.scenario;const q=document.getElementById('questions');q.replaceChildren();c.questions.forEach((s,i)=>{const p=document.createElement('p');p.className='q';const b=document.createElement('b');b.textContent='('+String.fromCharCode(97+i)+') ';p.append(b,document.createTextNode(s));q.append(p)});document.getElementById('result').classList.remove('hidden');document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});});
+document.getElementById('backBtn').addEventListener('click',()=>{document.getElementById('result').classList.add('hidden');document.getElementById('roll').value='';document.getElementById('roll').focus();window.scrollTo({top:0,behavior:'smooth'})});
+</script></body></html>
